@@ -1,3 +1,5 @@
+import { HeaderBoxProps } from "@/types";
+
 /* eslint-disable no-undef */
 function HeaderBox({ type = "title", title, subtext, user }: HeaderBoxProps) {
   // Returned JSX
