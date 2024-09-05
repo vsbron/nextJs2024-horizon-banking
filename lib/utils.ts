@@ -3,6 +3,7 @@ import { AccountTypes, Transaction, CategoryCount } from "@/types";
 import { type ClassValue, clsx } from "clsx";
 import qs from "query-string";
 import { twMerge } from "tailwind-merge";
+import { z } from "zod";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -194,3 +195,9 @@ export const getTransactionStatus = (date: Date) => {
 
   return date > twoDaysAgo ? "Processing" : "Success";
 };
+
+// Creating form schema
+export const authFormSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8, "Password must include at least 8 characters"),
+});
