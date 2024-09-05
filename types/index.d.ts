@@ -219,7 +219,7 @@ export interface RightSidebarProps {
   banks: Bank[] & Account[];
 }
 
-export interface SiderbarProps {
+export interface SidebarProps {
   user: User;
 }
 
