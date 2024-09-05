@@ -23,7 +23,7 @@ function Sidebar({ user }: SidebarProps) {
             height={34}
             alt="Horizon logo"
           />
-          <h1 className="sidebar-logo">Horizon</h1>
+          <h2 className="sidebar-logo">Horizon</h2>
         </Link>
         {sidebarLinks.map((item) => {
           // Checking if current route matches the menu item
