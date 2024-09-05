@@ -9,7 +9,11 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   // Temp user
-  const loggedIn = { firstName: "BroN", lastName: "VS" };
+  const loggedIn = {
+    firstName: "BroN",
+    lastName: "VS",
+    email: "vsbron.webdev@gmail.com",
+  };
 
   // Returned JSX
   return (

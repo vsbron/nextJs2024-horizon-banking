@@ -26,20 +26,21 @@ declare type LoginUser = {
   password: string;
 };
 
+// Remove ?
 declare type User = {
   firstName: string;
   lastName: string;
-  email: string;
-  // $id: string;
-  // userId: string;
-  // dwollaCustomerUrl: string;
-  // dwollaCustomerId: string;
-  // address1: string;
-  // city: string;
-  // state: string;
-  // postalCode: string;
-  // dateOfBirth: string;
-  // ssn: string;
+  email?: string;
+  $id?: string;
+  userId?: string;
+  dwollaCustomerUrl?: string;
+  dwollaCustomerId?: string;
+  address1?: string;
+  city?: string;
+  state?: string;
+  postalCode?: string;
+  dateOfBirth?: string;
+  ssn?: string;
 };
 
 declare type NewUserParams = {
@@ -49,18 +50,19 @@ declare type NewUserParams = {
   password: string;
 };
 
+// Remove ?
 declare type Account = {
-  id: string;
-  availableBalance: number;
-  currentBalance: number;
-  officialName: string;
-  mask: string;
-  institutionId: string;
-  name: string;
-  type: string;
-  subtype: string;
-  appwriteItemId: string;
-  sharableId: string;
+  id?: string;
+  availableBalance?: number;
+  currentBalance?: number;
+  officialName?: string;
+  mask?: string;
+  institutionId?: string;
+  name?: string;
+  type?: string;
+  subtype?: string;
+  appwriteItemId?: string;
+  sharableId?: string;
 };
 
 declare type Transaction = {
@@ -82,14 +84,15 @@ declare type Transaction = {
   receiverBankId: string;
 };
 
+// Remove ?
 declare type Bank = {
-  $id: string;
-  accountId: string;
-  bankId: string;
-  accessToken: string;
-  fundingSourceUrl: string;
-  userId: string;
-  sharableId: string;
+  $id?: string;
+  accountId?: string;
+  bankId?: string;
+  accessToken?: string;
+  fundingSourceUrl?: string;
+  userId?: string;
+  sharableId?: string;
 };
 
 declare type AccountTypes =

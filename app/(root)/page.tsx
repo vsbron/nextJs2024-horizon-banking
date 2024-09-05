@@ -27,7 +27,11 @@ function Home() {
         </header>
         RECENT TRANSACTIONS
       </div>
-      <RightSidebar user={loggedIn} transactions={[]} banks={[]} />
+      <RightSidebar
+        user={loggedIn}
+        transactions={[]}
+        banks={[{ currentBalance: 123.6 }, { currentBalance: 52 }]}
+      />
     </section>
   );
 }
