@@ -43,7 +43,7 @@ function MobileNav({ user }: MobileNavProps) {
                 height={34}
                 alt="Horizon logo"
               />
-              <h2 className="text-24 font-ibm-plex-serif font-bold text-black-1">
+              <h2 className="text-26 font-ibm-plex-serif font-bold text-black-1">
                 Horizon
               </h2>
             </Link>
