@@ -11,13 +11,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { authFormSchema } from "@/lib/utils";
+import { signUp, signIn } from "@/lib/actions/user.actions";
 
 import FormInput from "./FormInput";
+import { useRouter } from "next/navigation";
 
 function AuthForm({ type }: { type: string }) {
   // State for the user data and loading state
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Getting the router from the hook
+  const router = useRouter();
 
   // Getting the form schema based on the form type we need
   const formSchema = authFormSchema(type);
@@ -39,16 +44,34 @@ function AuthForm({ type }: { type: string }) {
   });
 
   // Defining a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
     // Enabling loading state
     setIsLoading(true);
 
-    setUser(null);
-    console.log(values);
+    try {
+      // Sign up with Appwrite & create plaid token
 
-    // Disabling loading state
-    setIsLoading(false);
-  }
+      // If sign up page
+      if (type === "sign-up") {
+        const newUser = await signUp(data);
+        setUser(newUser);
+      }
+
+      // If sign in page
+      if (type === "sign-in") {
+        // const response = await signIn({
+        //   email: data.email,
+        //   password: data.password,
+        // });
+        // if (response) router.push("/");
+      }
+    } catch (err: any) {
+      console.error(err.message);
+    } finally {
+      // Disabling loading state
+      setIsLoading(false);
+    }
+  };
 
   // Returned JSX
   return (
@@ -85,6 +108,8 @@ function AuthForm({ type }: { type: string }) {
                 </div>
                 {/* prettier-ignore */}
                 <FormInput control={form.control} name="address1" label="Address" placeholder="Enter your specific address" />
+                {/* prettier-ignore */}
+                <FormInput control={form.control} name="city" label="City" placeholder="Enter your city" />
                 {/* prettier-ignore */}
                 <div className="flex gap-4">
                   <FormInput control={form.control} name="state" label="State" placeholder="ex: NY" />
