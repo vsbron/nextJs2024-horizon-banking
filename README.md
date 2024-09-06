@@ -4,6 +4,7 @@ Horizon is a modern banking platform for everyone
 
 ## Features
 
+- Sign In and Sign Up pages with modern forms to fill;
 - Main dashboard page with the navigation, current balance, client details an available bank cards;
 
 ## Details
