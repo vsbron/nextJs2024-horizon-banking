@@ -12,10 +12,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { authFormSchema } from "@/lib/utils";
 
+// Getting the maximum auth form schema
+const formSchema = authFormSchema("sign-up");
+
 // Interface for the custom component
 interface FormInputInterface {
-  control: Control<z.infer<typeof authFormSchema>>;
-  name: keyof z.infer<typeof authFormSchema>;
+  control: Control<z.infer<typeof formSchema>>;
+  name: keyof z.infer<typeof formSchema>;
   label: string;
   placeholder: string;
 }

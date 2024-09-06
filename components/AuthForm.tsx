@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Loader2 } from "lucide-react";
 import { z } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,24 +13,33 @@ import { Form } from "@/components/ui/form";
 import { authFormSchema } from "@/lib/utils";
 
 import FormInput from "./FormInput";
-import { Loader2 } from "lucide-react";
 
 function AuthForm({ type }: { type: string }) {
   // State for the user data and loading state
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Getting the form schema based on the form type we need
+  const formSchema = authFormSchema(type);
+
   // Defining form and its default values
-  const form = useForm<z.infer<typeof authFormSchema>>({
-    resolver: zodResolver(authFormSchema),
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
+      firstName: "",
+      lastName: "",
+      address1: "",
+      state: "",
+      postalCode: "",
+      dateOfBirth: "",
+      ssn: "",
       email: "",
       password: "",
     },
   });
 
   // Defining a submit handler.
-  function onSubmit(values: z.infer<typeof authFormSchema>) {
+  function onSubmit(values: z.infer<typeof formSchema>) {
     // Enabling loading state
     setIsLoading(true);
 
@@ -71,6 +81,52 @@ function AuthForm({ type }: { type: string }) {
       ) : (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            {type === "sign-up" && (
+              <>
+                <FormInput
+                  control={form.control}
+                  name="firstName"
+                  label="First Name"
+                  placeholder="ex: John"
+                />
+                <FormInput
+                  control={form.control}
+                  name="lastName"
+                  label="Last Name"
+                  placeholder="ex: Doe"
+                />
+                <FormInput
+                  control={form.control}
+                  name="address1"
+                  label="Address"
+                  placeholder="Enter your specific address"
+                />
+                <FormInput
+                  control={form.control}
+                  name="state"
+                  label="State"
+                  placeholder="ex: NY"
+                />
+                <FormInput
+                  control={form.control}
+                  name="postalCode"
+                  label="Postal Code"
+                  placeholder="ex: 1110"
+                />
+                <FormInput
+                  control={form.control}
+                  name="dateOfBirth"
+                  label="Date of Birth"
+                  placeholder="ex: yyyy-mm-dd"
+                />
+                <FormInput
+                  control={form.control}
+                  name="ssn"
+                  label="SSN"
+                  placeholder="ex: 1234"
+                />
+              </>
+            )}
             <FormInput
               control={form.control}
               name="email"
