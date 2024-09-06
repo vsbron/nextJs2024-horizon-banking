@@ -11,18 +11,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { authFormSchema } from "@/lib/utils";
-import { signUp, signIn } from "@/lib/actions/user.actions";
+import { signUp } from "@/lib/actions/user.actions";
+// import { signIn } from "@/lib/actions/user.actions";
 
 import FormInput from "./FormInput";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 function AuthForm({ type }: { type: string }) {
   // State for the user data and loading state
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Getting the router from the hook
-  const router = useRouter();
+  // // Getting the router from the hook
+  // const router = useRouter();
 
   // Getting the form schema based on the form type we need
   const formSchema = authFormSchema(type);
