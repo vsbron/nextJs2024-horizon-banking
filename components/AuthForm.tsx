@@ -12,10 +12,12 @@ import { Form } from "@/components/ui/form";
 import { authFormSchema } from "@/lib/utils";
 
 import FormInput from "./FormInput";
+import { Loader2 } from "lucide-react";
 
 function AuthForm({ type }: { type: string }) {
-  // State for the user data
+  // State for the user data and loading state
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Defining form and its default values
   const form = useForm<z.infer<typeof authFormSchema>>({
@@ -28,10 +30,14 @@ function AuthForm({ type }: { type: string }) {
 
   // Defining a submit handler.
   function onSubmit(values: z.infer<typeof authFormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+    // Enabling loading state
+    setIsLoading(true);
+
     setUser(null);
     console.log(values);
+
+    // Disabling loading state
+    setIsLoading(false);
   }
 
   // Returned JSX
@@ -77,10 +83,34 @@ function AuthForm({ type }: { type: string }) {
               label="Password"
               placeholder="Enter your password"
             />
-            <Button className="form-btn" type="submit">
-              Submit
-            </Button>
+            <div className="flex flex-col gap-4">
+              <Button className="form-btn" type="submit" disabled={isLoading}>
+                {isLoading ? (
+                  <>
+                    <Loader2 size="20" className="animate-spin" /> &nbsp;
+                    Loading...
+                  </>
+                ) : type === "sign-in" ? (
+                  "Sign In"
+                ) : (
+                  "Sign Up"
+                )}
+              </Button>
+            </div>
           </form>
+          <footer className="flex justify-center gap-1">
+            <p className="text-14 font-normal text-gray-600">
+              {type === "sign-in"
+                ? "Don't have an account?"
+                : "Already have an account?"}
+            </p>
+            <Link
+              href={type === "sign-in" ? "/sign-up" : "sign-in"}
+              className="form-link"
+            >
+              {type === "sign-in" ? "Sign Up" : "Sign In"}
+            </Link>
+          </footer>
         </Form>
       )}
     </section>
