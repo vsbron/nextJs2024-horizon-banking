@@ -29,8 +29,9 @@ declare type LoginUser = {
 
 // Remove ?
 declare type User = {
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
+  name?: string;
   email?: string;
   $id?: string;
   userId?: string;
@@ -215,6 +216,7 @@ export interface TotalBalanceBoxProps {
 
 export interface FooterProps {
   user: User;
+  type?: "mobile" | "desktop";
 }
 
 export interface RightSidebarProps {

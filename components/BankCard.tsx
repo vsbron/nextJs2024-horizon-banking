@@ -10,9 +10,7 @@ function BankCard({ account, userName, showBalance = true }: CreditCardProps) {
       <Link href="/" className="bank-card">
         <div className="bank-card_content">
           <div>
-            <h3 className="text-16 font-semibold text-white">
-              {account.name || userName}
-            </h3>
+            <h3 className="text-16 font-semibold text-white">{userName}</h3>
             <p className="font-ibm-plex-serif font-black text-white">
               {formatAmount(account.currentBalance || 2000)}
             </p>

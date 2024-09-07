@@ -13,6 +13,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import Footer from "./Footer";
 
 function MobileNav({ user }: MobileNavProps) {
   // Getting the current pathname
@@ -90,7 +91,7 @@ function MobileNav({ user }: MobileNavProps) {
                   })}
                 </nav>
               </SheetClose>
-              FOOTER
+              <Footer user={user} type="mobile" />
             </div>
           </nav>
         </SheetContent>

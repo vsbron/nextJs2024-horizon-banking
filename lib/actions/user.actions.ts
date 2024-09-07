@@ -15,6 +15,14 @@ export const signIn = async ({ email, password }: signInProps) => {
     // Getting the response of authentication
     const response = await account.createEmailPasswordSession(email, password);
 
+    // Setting the cookies for the session
+    cookies().set("appwrite-session", response.secret, {
+      path: "/",
+      httpOnly: true,
+      sameSite: "strict",
+      secure: true,
+    });
+
     // Returning the parsed response
     return parseStringify(response);
   } catch (err: any) {
@@ -62,6 +70,22 @@ export async function getLoggedInUser() {
     const { account } = await createSessionClient();
     return await account.get();
   } catch (error) {
+    console.error("Error fetching logged-in user:", error);
+    return null;
+  }
+}
+
+export async function logoutAccount() {
+  try {
+    // Getting the account object from appwrite
+    const { account } = await createSessionClient();
+
+    // Deleting the cookies
+    cookies().delete("appwrite-session");
+
+    // Deleting the current session
+    await account.deleteSession("current");
+  } catch {
     return null;
   }
 }
