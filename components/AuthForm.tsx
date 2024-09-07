@@ -15,6 +15,7 @@ import { authFormSchema } from "@/lib/utils";
 import { signUp, signIn } from "@/lib/actions/user.actions";
 
 import FormInput from "./FormInput";
+import PlaidLink from "./PlaidLink";
 // import { useRouter } from "next/navigation";
 
 function AuthForm({ type }: { type: string }) {
@@ -95,8 +96,11 @@ function AuthForm({ type }: { type: string }) {
           </p>
         </div>
       </header>
+
       {user ? (
-        <div className="flex flex-col gap-4">{/* PlaidLink */}</div>
+        <div className="flex flex-col gap-4">
+          <PlaidLink user={user} variant="primary" />
+        </div>
       ) : (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
