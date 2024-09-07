@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { z } from "zod";
 
@@ -11,8 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { authFormSchema } from "@/lib/utils";
-import { signUp } from "@/lib/actions/user.actions";
-// import { signIn } from "@/lib/actions/user.actions";
+import { signUp, signIn } from "@/lib/actions/user.actions";
 
 import FormInput from "./FormInput";
 // import { useRouter } from "next/navigation";
@@ -22,8 +22,8 @@ function AuthForm({ type }: { type: string }) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  // // Getting the router from the hook
-  // const router = useRouter();
+  // Getting the router from the hook
+  const router = useRouter();
 
   // Getting the form schema based on the form type we need
   const formSchema = authFormSchema(type);
@@ -60,11 +60,11 @@ function AuthForm({ type }: { type: string }) {
 
       // If sign in page
       if (type === "sign-in") {
-        // const response = await signIn({
-        //   email: data.email,
-        //   password: data.password,
-        // });
-        // if (response) router.push("/");
+        const response = await signIn({
+          email: data.email,
+          password: data.password,
+        });
+        if (response) router.push("/");
       }
     } catch (err: any) {
       console.error(err.message);

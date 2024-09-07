@@ -7,9 +7,16 @@ import { ID } from "node-appwrite";
 import { parseStringify } from "../utils";
 
 // Server action for Signing In
-export const signIn = async (data: signInProps) => {
+export const signIn = async ({ email, password }: signInProps) => {
   try {
-    console.log("Sign In");
+    // Getting the account object from Appwrite
+    const { account } = await createAdminClient();
+
+    // Getting the response of authentication
+    const response = await account.createEmailPasswordSession(email, password);
+
+    // Returning the parsed response
+    return parseStringify(response);
   } catch (err: any) {
     console.error("Error: " + err.message);
   }
@@ -21,6 +28,7 @@ export const signUp = async (userData: SignUpParams) => {
   const { firstName, lastName, email, password } = userData;
 
   try {
+    // Getting the account object from Appwrite
     const { account } = await createAdminClient();
 
     // Creating user with necessary fields
