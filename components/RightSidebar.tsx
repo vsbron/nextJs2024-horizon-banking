@@ -37,7 +37,6 @@ function RightSidebar({ user, transactions, banks }: RightSidebarProps) {
                 key={banks[0].$id}
                 account={banks[0]}
                 userName={`${user.name}`}
-                showBalance={false}
               />
             </div>
             {banks[1] && (

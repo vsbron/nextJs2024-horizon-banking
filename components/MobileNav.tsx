@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { sidebarLinks } from "@/constants";
 import { MobileNavProps } from "@/types";
+import { cn } from "@/lib/utils";
 
 import {
   Sheet,
@@ -12,7 +13,6 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { cn } from "@/lib/utils";
 import Footer from "./Footer";
 
 function MobileNav({ user }: MobileNavProps) {

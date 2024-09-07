@@ -1,10 +1,12 @@
+import { redirect } from "next/navigation";
+
+import { getLoggedInUser } from "@/lib/actions/user.actions";
+
 import HeaderBox from "@/components/HeaderBox";
 import RightSidebar from "@/components/RightSidebar";
 import TotalBalanceBox from "@/components/TotalBalanceBox";
-import { getLoggedInUser } from "@/lib/actions/user.actions";
-import { redirect } from "next/navigation";
 
-const Home = async () => {
+const Dashboard = async () => {
   // Trying to get the logged in user data
   const loggedIn = await getLoggedInUser();
 
@@ -18,7 +20,7 @@ const Home = async () => {
           <HeaderBox
             type="greeting"
             title="Welcome"
-            user={loggedIn?.name || "Guest"}
+            user={loggedIn.name}
             subtext="Access and manage your account and transactions efficiently"
           />
           <TotalBalanceBox
@@ -38,4 +40,4 @@ const Home = async () => {
   );
 };
 
-export default Home;
+export default Dashboard;

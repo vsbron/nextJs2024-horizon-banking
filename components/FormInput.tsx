@@ -1,7 +1,9 @@
 "use client";
 
-import { Control } from "react-hook-form";
+import { Control, FieldPath } from "react-hook-form";
 import { z } from "zod";
+
+import { authFormSchema } from "@/lib/utils";
 
 import {
   FormControl,
@@ -10,7 +12,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { authFormSchema } from "@/lib/utils";
 
 // Getting the maximum auth form schema
 const formSchema = authFormSchema("sign-up");
@@ -18,7 +19,7 @@ const formSchema = authFormSchema("sign-up");
 // Interface for the custom component
 interface FormInputInterface {
   control: Control<z.infer<typeof formSchema>>;
-  name: keyof z.infer<typeof formSchema>;
+  name: FieldPath<z.infer<typeof formSchema>>;
   label: string;
   placeholder: string;
 }

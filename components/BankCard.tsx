@@ -12,7 +12,7 @@ function BankCard({ account, userName, showBalance = true }: CreditCardProps) {
           <div>
             <h3 className="text-16 font-semibold text-white">{userName}</h3>
             <p className="font-ibm-plex-serif font-black text-white">
-              {formatAmount(account.currentBalance || 2000)}
+              {showBalance && formatAmount(account.currentBalance || 0)}
             </p>
           </div>
           <article className="flex flex-col gap-2">
@@ -29,9 +29,8 @@ function BankCard({ account, userName, showBalance = true }: CreditCardProps) {
           <Image src="/icons/Paypass.svg" width={20} height={24} alt="Pay" />
           <Image
             src="/icons/mastercard.svg"
-            className="ml-5"
-            width={45}
-            height={32}
+            width={40}
+            height={25}
             alt="Mastercard"
           />
         </div>
@@ -40,7 +39,7 @@ function BankCard({ account, userName, showBalance = true }: CreditCardProps) {
           className="absolute right-0 top-0"
           width={316}
           height={119}
-          alt="Lights"
+          alt="Lines"
         />
       </Link>
       {/* COPY */}

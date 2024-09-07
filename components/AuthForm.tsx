@@ -9,16 +9,20 @@ import { Loader2 } from "lucide-react";
 import { z } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
 import { authFormSchema } from "@/lib/utils";
 import { signUp, signIn } from "@/lib/actions/user.actions";
 
 import FormInput from "./FormInput";
 import PlaidLink from "./PlaidLink";
-// import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
 
-function AuthForm({ type }: { type: string }) {
+// Interface for auth form props
+interface AuthFormProps {
+  type: "sign-in" | "sign-up";
+}
+
+function AuthForm({ type }: AuthFormProps) {
   // State for the user data and loading state
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -87,9 +91,9 @@ function AuthForm({ type }: { type: string }) {
           </h2>
         </Link>
         <div className="flex flex-col gap-1 md:gap-3">
-          <h2 className="text-24 lg:text-36 font-semibold text-gray-900">
+          <h1 className="text-24 lg:text-36 font-semibold text-gray-900">
             {user ? "Link Account" : type === "sign-in" ? "Sign In" : "Sign Up"}
-          </h2>
+          </h1>
           {/* prettier-ignore */}
           <p className="text-16 font-normal text-gray-600">
             {user ? "Link your account to get started" : "Please enter your details"}
