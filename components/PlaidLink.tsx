@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import {
   PlaidLinkOnSuccess,
@@ -7,11 +8,13 @@ import {
   usePlaidLink,
 } from "react-plaid-link";
 
+import {
+  createLinkToken,
+  exchangePublicToken,
+} from "@/lib/actions/user.actions";
 import { PlaidLinkProps } from "@/types";
 
 import { Button } from "./ui/button";
-import { useRouter } from "next/navigation";
-import { createLinkToken } from "@/lib/actions/user.actions";
 
 function PlaidLink({ user, variant }: PlaidLinkProps) {
   // Creating the state for a token
@@ -23,7 +26,10 @@ function PlaidLink({ user, variant }: PlaidLinkProps) {
   // Use Effect to get the link token on mount
   useEffect(() => {
     const getLinkToken = async () => {
+      // Get the new token
       const data = await createLinkToken(user);
+
+      // Set token to the state
       setToken(data?.linkToken);
     };
 
@@ -33,7 +39,7 @@ function PlaidLink({ user, variant }: PlaidLinkProps) {
   // On success handler
   const onSuccess = useCallback<PlaidLinkOnSuccess>(
     async (public_token: string) => {
-      // await exchangePublicToken({ publicToken: public_token, user });
+      await exchangePublicToken({ publicToken: public_token, user });
 
       // Redirect to homepage if success
       router.push("/");

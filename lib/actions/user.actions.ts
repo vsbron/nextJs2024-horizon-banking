@@ -1,12 +1,16 @@
 "use server";
+import { ID } from "node-appwrite";
 import { cookies } from "next/headers";
+import { revalidatePath } from "next/cache";
 import {
   CountryCode,
   ProcessorTokenCreateRequest,
   ProcessorTokenCreateRequestProcessorEnum,
   Products,
 } from "plaid";
-import { ID } from "node-appwrite";
+import { createAdminClient, createSessionClient } from "../appwrite";
+import { encryptId, parseStringify } from "../utils";
+import { plaidClient } from "../plaid";
 
 import {
   exchangePublicTokenProps,
@@ -14,10 +18,7 @@ import {
   SignUpParams,
   User,
 } from "@/types";
-import { createAdminClient, createSessionClient } from "../appwrite";
-import { encryptId, parseStringify } from "../utils";
-import { plaidClient } from "../plaid";
-import { revalidatePath } from "next/cache";
+import { addFundingSource } from "./dwolla.actions";
 
 // Server action for Signing In
 export const signIn = async ({ email, password }: signInProps) => {
@@ -111,13 +112,12 @@ export const createLinkToken = async (user: User) => {
       user: {
         client_user_id: user.$id || "",
       },
-      client_name: user.name || "",
+      client_name: user.name,
       products: ["auth"] as Products[],
       language: "en",
       country_codes: ["US"] as CountryCode[],
     };
     const response = await plaidClient.linkTokenCreate(tokenParams);
-
     return parseStringify({ linkToken: response.data.link_token });
   } catch (err: any) {
     console.error(err.message);
@@ -157,17 +157,16 @@ export const exchangePublicToken = async ({
     const processorToken = processorTokenResponse.data.processor_token;
 
     // Create a funding source URL for the account using the Dwolla customer ID, processor token, and bank name
-    // const fundingSourceUrl = await addFundingSource({
-    //   dwollaCustomerId: user.dwollaCustomerId,
-    //   processorToken,
-    //   bankName: accountData.name,
-    // });
-    const fundingSourceUrl = processorToken;
+    const fundingSourceUrl = await addFundingSource({
+      dwollaCustomerId: user.dwollaCustomerId,
+      processorToken,
+      bankName: accountData.name,
+    });
 
     // If the funding source URL is not created, throw an error
     if (!fundingSourceUrl) throw Error;
 
-    // Create a bank account using the user ID, item ID, account ID, access token, funding source URL, and shareableId ID
+    // Create a bank account using the user ID, item ID, account ID, access token, funding source URL, and shareable ID
     await createBankAccount({
       userId: user.$id,
       bankId: itemId,

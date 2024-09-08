@@ -31,7 +31,7 @@ declare type LoginUser = {
 declare type User = {
   firstName?: string;
   lastName?: string;
-  name?: string;
+  name: string;
   email?: string;
   $id?: string;
   userId?: string;

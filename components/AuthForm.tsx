@@ -101,61 +101,61 @@ function AuthForm({ type }: AuthFormProps) {
         </div>
       </header>
 
-      {user ? (
-        <div className="flex flex-col gap-4">
-          <PlaidLink user={user} variant="primary" />
-        </div>
-      ) : (
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            {type === "sign-up" && (
-              <>
-                {/* prettier-ignore */}
-                <div className="flex gap-4">
+      {/* {user ? ( */}
+      <div className="flex flex-col gap-4">
+        <PlaidLink user={user!} variant="primary" />
+      </div>
+      {/* ) : ( */}
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          {type === "sign-up" && (
+            <>
+              {/* prettier-ignore */}
+              <div className="flex gap-4">
                   <FormInput control={form.control} name="firstName" label="First Name" placeholder="ex: John" />
                   <FormInput control={form.control} name="lastName" label="Last Name" placeholder="ex: Doe" />
                 </div>
-                {/* prettier-ignore */}
-                <FormInput control={form.control} name="address1" label="Address" placeholder="Enter your specific address" />
-                {/* prettier-ignore */}
-                <FormInput control={form.control} name="city" label="City" placeholder="Enter your city" />
-                {/* prettier-ignore */}
-                <div className="flex gap-4">
+              {/* prettier-ignore */}
+              <FormInput control={form.control} name="address1" label="Address" placeholder="Enter your specific address" />
+              {/* prettier-ignore */}
+              <FormInput control={form.control} name="city" label="City" placeholder="Enter your city" />
+              {/* prettier-ignore */}
+              <div className="flex gap-4">
                   <FormInput control={form.control} name="state" label="State" placeholder="ex: NY" />
                   <FormInput control={form.control} name="postalCode" label="Postal Code" placeholder="ex: 1110" />
                 </div>
-                {/* prettier-ignore */}
-                <div className="flex gap-4">
+              {/* prettier-ignore */}
+              <div className="flex gap-4">
                   <FormInput control={form.control} name="dateOfBirth" label="Date of Birth" placeholder="ex: yyyy-mm-dd" />
                   <FormInput control={form.control} name="ssn" label="SSN" placeholder="ex: 1234" />
                 </div>
-              </>
-            )}
+            </>
+          )}
+          {/* prettier-ignore */}
+          <FormInput control={form.control} name="email" label="Email" placeholder="Enter your email" />
+          {/* prettier-ignore */}
+          <FormInput control={form.control} name="password" label="Password" placeholder="Enter your password" />
+          <div className="flex flex-col gap-4">
             {/* prettier-ignore */}
-            <FormInput control={form.control} name="email" label="Email" placeholder="Enter your email" />
-            {/* prettier-ignore */}
-            <FormInput control={form.control} name="password" label="Password" placeholder="Enter your password" />
-            <div className="flex flex-col gap-4">
-              {/* prettier-ignore */}
-              <Button className="form-btn" type="submit" disabled={isLoading}>
+            <Button className="form-btn" type="submit" disabled={isLoading}>
                 {isLoading ? (
                   <> <Loader2 size="20" className="animate-spin" /> &nbsp;Loading...</>
                 ) : type === "sign-in" ? ("Sign In") : ("Sign Up")}
               </Button>
-            </div>
-          </form>
-          <footer className="flex justify-center gap-1">
-            {/* prettier-ignore */}
-            <p className="text-14 font-normal text-gray-600">
+          </div>
+        </form>
+        <footer className="flex justify-center gap-1">
+          {/* prettier-ignore */}
+          <p className="text-14 font-normal text-gray-600">
               {type === "sign-in" ? "Don't have an account?" : "Already have an account?"}
             </p>
-            {/* prettier-ignore */}
-            <Link href={type === "sign-in" ? "/sign-up" : "sign-in"} className="form-link">
+          {/* prettier-ignore */}
+          <Link href={type === "sign-in" ? "/sign-up" : "sign-in"} className="form-link">
               {type === "sign-in" ? "Sign Up" : "Sign In"}
             </Link>
-          </footer>
-        </Form>
-      )}
+        </footer>
+      </Form>
+      {/* )} */}
     </section>
   );
 }

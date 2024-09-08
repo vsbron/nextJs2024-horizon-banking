@@ -13,7 +13,7 @@ function RightSidebar({ user, transactions, banks }: RightSidebarProps) {
         <div className="profile">
           <div className="profile-img">
             <span className="text-5xl font-bold text-blue-500">
-              {user.name![0]}
+              {user.name[0]}
             </span>
           </div>
           <div className="profile-details">
