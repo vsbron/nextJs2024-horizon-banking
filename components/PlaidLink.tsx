@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -44,7 +43,7 @@ function PlaidLink({ user, variant }: PlaidLinkProps) {
       // Redirect to homepage if success
       router.push("/");
     },
-    [user]
+    [user, router]
   );
 
   // Creating config file for the Plaid
